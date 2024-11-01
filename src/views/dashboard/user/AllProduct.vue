@@ -2,7 +2,6 @@
   <NavbarUser />
   <JumbotronLayout />
   <div class="container mx-auto px-36">
-    <button type="" class="text-white bg-green-600 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2">Product Category</button>
     <!-- <CardCategory /> -->
     <div class="text-center mt-4">
       <p class="text-xl font-bold">All Products</p>
