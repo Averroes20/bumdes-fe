@@ -5,19 +5,19 @@ import { createRouter, createWebHistory } from 'vue-router';
 const routes = [
     {
         path: '/',
-        name: 'home',
+        name: 'UserDashboard',
         component: () =>
-            import(/* webpackChunkName: "Auth" */ "@/views/home/Index.vue"),
+            import(/* webpackChunkName: "Auth" */ "@/views/dashboard/user/UserDashboard.vue"),
     },
     {
         path: '/login',
-        name: 'login',
+        name: 'AdminLogin',
         component: () =>
-            import(/* webpackChunkName: "Auth" */ "@/views/auth/admin/Index.vue"),
+            import(/* webpackChunkName: "Auth" */ "@/views/auth/admin/AdminLogin.vue"),
     },
     {
         path: '/user-login',
-        name: 'login',
+        name: 'UserLogin',
         component: () =>
             import(/* webpackChunkName: "Auth" */ "@/views/auth/user/UserLogin.vue"),
     },
@@ -32,24 +32,28 @@ const routes = [
         name: 'AdminDashboard',
         component: () =>
             import(/* webpackChunkName: "Auth" */ "@/views/dashboard//admin/DashboardAdmin.vue"),
+        meta: { requiresAuth: true }
     },
     {
         path: '/inventory',
         name: 'InventoryAdmin',
         component: () =>
             import(/* webpackChunkName: "Auth" */ "@/views/dashboard//admin/InventoryAdmin.vue"),
+        meta: { requiresAuth: true } 
     },
     {
         path: '/overview',
         name: 'OverviewInventory',
         component: () =>
             import(/* webpackChunkName: "Auth" */ "@/views/dashboard//admin/OverviewInventory.vue"),
+        meta: { requiresAuth: true } 
     },
     {
         path: '/suppliers',
         name: 'SuppliersAdmin',
         component: () =>
             import(/* webpackChunkName: "Auth" */ "@/views/dashboard//admin/SuppliersAdmin.vue"),
+        meta: { requiresAuth: true } 
     },
     {
         path: '/all-product',
@@ -104,6 +108,16 @@ const routes = [
 const router = createRouter({
     history: createWebHistory(),
     routes,
+});
+
+router.beforeEach((to, from, next) => {
+    const loggedIn = localStorage.getItem('loggedIn');
+
+    if (to.matched.some(record => record.meta.requiresAuth) && !loggedIn) {
+        // Jika route membutuhkan auth dan pengguna belum login, redirect ke halaman login
+        return next({ name: 'AdminLogin' });
+    }
+    next();
 });
 
 export default router;

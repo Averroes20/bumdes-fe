@@ -5,7 +5,7 @@
           <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">BUMDes MART</span>
       </a>
       <div class="flex md:order-2 space-x-3 md:space-x-0 rtl:space-x-reverse">
-          <router-link :to="{name: 'login'}" v-if="!loggedIn" type="button" class="btn text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium text-sm px-4 py-2 mx-2 text-center bg-primary-color">Login</router-link>
+          <router-link :to="{name: 'UserLogin'}" v-if="!loggedIn" type="button" class="btn text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium text-sm px-4 py-2 mx-2 text-center bg-primary-color">Login</router-link>
           <button type="button" class="text-white bg-primary-color hover:bg-green-800 focus:ring-4 focus:outline-none focus:ring-green-300 font-medium text-sm px-4 py-2 text-center">Register</button>
           <button data-collapse-toggle="navbar-sticky" type="button" class="inline-flex items-center p-2 w-10 h-10 justify-center text-sm text-gray-500 rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600" aria-controls="navbar-sticky" aria-expanded="false">
             <span class="sr-only">Open main menu</span>
@@ -49,23 +49,23 @@
 <script>
 export default {
   name: 'NavbarUser',
-  // data() {
-  //   return {
-  //     loggedIn: null
-  //   }
-  // },
-  // methods: {
-  //   getLoggedIn() {
-  //     this.loggedIn = localStorage.getItem("loggedIn");
-  //   }
-  // },
-  // watch: {
-  //   $route: {
-  //     immediate: true,
-  //     handler() {
-  //       this.getLoggedIn();
-  //     }
-  //   }
-  // },
+  data() {
+    return {
+      loggedIn: null
+    }
+  },
+  methods: {
+    getLoggedIn() {
+      this.loggedIn = localStorage.getItem("loggedIn");
+    }
+  },
+  watch: {
+    $route: {
+      immediate: true,
+      handler() {
+        this.getLoggedIn();
+      }
+    }
+  },
 }
 </script>

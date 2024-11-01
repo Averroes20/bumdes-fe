@@ -22,7 +22,7 @@ import NavbarUser from '@/components/layouts/NavbarUser.vue';
 import SearchLayout from '@/components/layouts/SearchLayout.vue';
 
 export default {
-  name: 'AdminHome',
+  name: 'UserDashboard',
 
   components: {
     // Daftarkan komponen Navbar

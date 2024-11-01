@@ -69,89 +69,53 @@
 </template>
 
 <script>
-//   import axios from 'axios'
+  import axios from 'axios'
 
-  export default {
-      name: 'AdminLogin',
+	export default {
+  data() {
+    return {
+      user: {
+        email: '',
+        password: ''
+      },
+      validation: {}, // Menyimpan error validasi
+      loginFailed: false
+    };
+  },
+  methods: {
+    login() {
+      // Periksa input
+      this.validation = {};
+      if (!this.user.email) this.validation.email = 'Masukkan email';
+      if (!this.user.password) this.validation.password = 'Masukkan password';
 
-    //   data() {
-    //       return {
-    //           //state loggedIn with localStorage
-    //           loggedIn: localStorage.getItem('loggedIn'),
-    //           //state token
-    //           token: localStorage.getItem('token'),
-    //           //state user
-    //           user: [],
-    //           //state validation
-    //           validation: [],
-    //           //state login failed
-    //           loginFailed: null
-    //       }
-    //   },
-    //   methods: {
-
-    //       login() {
-    //           if (this.user.email && this.user.password) {
-    //               axios.get('http://localhost:8000/sanctum/csrf-cookie')
-    //                   .then(response => {
-
-    //                       //debug cookie
-    //                       console.log(response)
-
-    //                       axios.post('http://localhost:8000/api/login', {
-    //                           email: this.user.email,
-    //                           password: this.user.password
-    //                       }).then(res => {
-
-    //                           //debug user login
-    //                           console.log(res)
-
-    //                           if (res.data.success) {
-
-    //                               //set localStorage
-    //                               localStorage.setItem("loggedIn", "true")
-
-    //                               //set localStorage Token
-    //                               localStorage.setItem("token", res.data.token)
-
-    //                               //change state
-    //                               this.loggedIn = true
-
-    //                               //redirect dashboard
-    //                               return this.$router.push({ name: 'dashboard' })
-
-    //                           } else {
-
-    //                               //set state login failed
-    //                               this.loginFailed = true
-
-    //                           }
-
-    //                       }).catch(error => {
-    //                           console.log(error)
-    //                       })
-
-    //                   })
-    //           }
-
-    //           this.validation = []
-
-    //           if (!this.user.email) {
-    //               this.validation.email = true
-    //           }
-
-    //           if (!this.user.password) {
-    //               this.validation.password = true
-    //           }
-
-    //       }
-    //   },
-
-    //   //check user already logged in
-    //   mounted() {
-    //       if (this.loggedIn) {
-    //           return this.$router.push({ name: 'dashboard' })
-    //       }
-    //   }
+      // Hanya lanjut jika input valid
+      if (this.user.email && this.user.password) {
+        axios.get('http://localhost:8000/sanctum/csrf-cookie').then(() => {
+          axios.post('http://localhost:8000/api/login', {
+            email: this.user.email,
+            password: this.user.password
+          }).then(res => {
+            if (res.data.success) {
+              localStorage.setItem('loggedIn', 'true');
+              localStorage.setItem('token', res.data.token);
+              this.$router.push({ name: 'AdminDashboard' });
+            } else {
+              this.loginFailed = true;
+            }
+          }).catch(() => {
+            this.loginFailed = true;
+          });
+        });
+      }
+    }
+  },
+  mounted() {
+    // Cek jika pengguna sudah login
+    if (localStorage.getItem('loggedIn') === 'true') {
+      this.$router.push({ name: 'AdminDashboard' });
+    }
   }
+};
+
 </script>

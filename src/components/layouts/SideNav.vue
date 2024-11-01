@@ -47,7 +47,7 @@
                   <li>
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Earnings</a>
                   </li>
-                  <li>
+                  <li @click="logout" style="cursor:pointer">
                     <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white" role="menuitem">Sign out</a>
                   </li>
                 </ul>
@@ -93,21 +93,37 @@
 </template>
 
 <script>
+  import axios from 'axios'
   export default{
     name: 'SideNav',
+
+    data() {
+        return {
+            //state loggedIn with localStorage
+            loggedIn: localStorage.getItem('loggedIn'),
+            //state token
+            token: localStorage.getItem('token'),
+            //state user logged In
+            user: []
+        }
+    },
+
+    methods: {
+        logout() {
+            axios.get('http://localhost:8000/api/logout')
+            .then(() => {
+                //remove localStorage
+                localStorage.removeItem("loggedIn")    
+
+
+                //redirect
+                return this.$router.push({ name: 'AdminLogin' })
+            })
+        }
+    },
 
     components: {
 
     }
   }
-  document.addEventListener("DOMContentLoaded", function() {
-    const links = document.querySelectorAll(".sidebar-link");
-    const currentPath = window.location.pathname;
-
-    links.forEach(link => {
-        if (link.getAttribute("href") === currentPath) {
-            link.classList.add("bg-gray-200", "dark:bg-gray-700", "primary-color", "dark:primary-color");
-        }
-    });
-  });
 </script>
