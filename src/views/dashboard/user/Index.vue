@@ -49,47 +49,47 @@ import JumbotronLayout from '@/components/layouts/JumbotronLayout.vue';
 import SearchLayout from '@/components/layouts/SearchLayout.vue';
 
 export default {
-  name: 'AdminDashboard',
+  name: 'UserDashboard',
 
-  data() {
-      return {
+//   data() {
+//       return {
           //state loggedIn with localStorage
-          loggedIn: localStorage.getItem('loggedIn'),
-          //state token
-          token: localStorage.getItem('token'),
-          //state user logged In
-          user: []
-      }
-  },
+        //   loggedIn: localStorage.getItem('loggedIn'),
+        //   //state token
+        //   token: localStorage.getItem('token'),
+        //   //state user logged In
+        //   user: []
+//       }
+//   },
 
-  created() {
-      axios.get('http://localhost:8000/api/user', {headers: {'Authorization': 'Bearer '+this.token}})
-      .then(response => {
-          console.log(response)
-          this.user = response.data // assign response to state user
-      })
-  },
+//   created() {
+//       axios.get('http://localhost:8000/api/user', {headers: {'Authorization': 'Bearer '+this.token}})
+//       .then(response => {
+//           console.log(response)
+//           this.user = response.data // assign response to state user
+//       })
+//   },
 
-  methods: {
-      logout() {
-          axios.get('http://localhost:8000/api/logout')
-          .then(() => {
-              //remove localStorage
-              localStorage.removeItem("loggedIn")    
+//   methods: {
+//       logout() {
+//           axios.get('http://localhost:8000/api/logout')
+//           .then(() => {
+//               //remove localStorage
+//               localStorage.removeItem("loggedIn")    
 
 
-              //redirect
-              return this.$router.push({ name: 'login' })
-          })
-      }
-  },
+//               //redirect
+//               return this.$router.push({ name: 'login' })
+//           })
+//       }
+//   },
 
   //check user logged in or not
-  mounted() {
-      if(!this.loggedIn) {
-          return this.$router.push({ name: 'login' })
-      }
-  },
+//   mounted() {
+//       if(!this.loggedIn) {
+//           return this.$router.push({ name: 'login' })
+//       }
+//   },
 
   components: {
     // Daftarkan komponen Navbar

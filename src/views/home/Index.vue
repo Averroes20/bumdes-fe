@@ -1,4 +1,5 @@
 <template>
+  <NavbarUser />
   <JumbotronLayout />
   <div class="container mx-auto px-36">
     <button type="" class="text-white bg-green-600 font-medium rounded-lg text-lg px-5 py-2.5 me-2 mb-2">Product Category</button>
@@ -17,6 +18,7 @@ import CardCategory from '@/components/layouts/CardCategory.vue';
 import CardItem from '@/components/layouts/CardItem.vue';
 import FooterLayout from '@/components/layouts/FooterLayout.vue';
 import JumbotronLayout from '@/components/layouts/JumbotronLayout.vue';
+import NavbarUser from '@/components/layouts/NavbarUser.vue';
 import SearchLayout from '@/components/layouts/SearchLayout.vue';
 
 export default {
@@ -28,7 +30,8 @@ export default {
     CardCategory,
     SearchLayout,
     CardItem,
-    FooterLayout
+    FooterLayout,
+    NavbarUser
   }
 }
 </script>

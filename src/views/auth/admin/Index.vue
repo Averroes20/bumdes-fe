@@ -69,89 +69,89 @@
 </template>
 
 <script>
-  import axios from 'axios'
+//   import axios from 'axios'
 
   export default {
       name: 'AdminLogin',
 
-      data() {
-          return {
-              //state loggedIn with localStorage
-              loggedIn: localStorage.getItem('loggedIn'),
-              //state token
-              token: localStorage.getItem('token'),
-              //state user
-              user: [],
-              //state validation
-              validation: [],
-              //state login failed
-              loginFailed: null
-          }
-      },
-      methods: {
+    //   data() {
+    //       return {
+    //           //state loggedIn with localStorage
+    //           loggedIn: localStorage.getItem('loggedIn'),
+    //           //state token
+    //           token: localStorage.getItem('token'),
+    //           //state user
+    //           user: [],
+    //           //state validation
+    //           validation: [],
+    //           //state login failed
+    //           loginFailed: null
+    //       }
+    //   },
+    //   methods: {
 
-          login() {
-              if (this.user.email && this.user.password) {
-                  axios.get('http://localhost:8000/sanctum/csrf-cookie')
-                      .then(response => {
+    //       login() {
+    //           if (this.user.email && this.user.password) {
+    //               axios.get('http://localhost:8000/sanctum/csrf-cookie')
+    //                   .then(response => {
 
-                          //debug cookie
-                          console.log(response)
+    //                       //debug cookie
+    //                       console.log(response)
 
-                          axios.post('http://localhost:8000/api/login', {
-                              email: this.user.email,
-                              password: this.user.password
-                          }).then(res => {
+    //                       axios.post('http://localhost:8000/api/login', {
+    //                           email: this.user.email,
+    //                           password: this.user.password
+    //                       }).then(res => {
 
-                              //debug user login
-                              console.log(res)
+    //                           //debug user login
+    //                           console.log(res)
 
-                              if (res.data.success) {
+    //                           if (res.data.success) {
 
-                                  //set localStorage
-                                  localStorage.setItem("loggedIn", "true")
+    //                               //set localStorage
+    //                               localStorage.setItem("loggedIn", "true")
 
-                                  //set localStorage Token
-                                  localStorage.setItem("token", res.data.token)
+    //                               //set localStorage Token
+    //                               localStorage.setItem("token", res.data.token)
 
-                                  //change state
-                                  this.loggedIn = true
+    //                               //change state
+    //                               this.loggedIn = true
 
-                                  //redirect dashboard
-                                  return this.$router.push({ name: 'dashboard' })
+    //                               //redirect dashboard
+    //                               return this.$router.push({ name: 'dashboard' })
 
-                              } else {
+    //                           } else {
 
-                                  //set state login failed
-                                  this.loginFailed = true
+    //                               //set state login failed
+    //                               this.loginFailed = true
 
-                              }
+    //                           }
 
-                          }).catch(error => {
-                              console.log(error)
-                          })
+    //                       }).catch(error => {
+    //                           console.log(error)
+    //                       })
 
-                      })
-              }
+    //                   })
+    //           }
 
-              this.validation = []
+    //           this.validation = []
 
-              if (!this.user.email) {
-                  this.validation.email = true
-              }
+    //           if (!this.user.email) {
+    //               this.validation.email = true
+    //           }
 
-              if (!this.user.password) {
-                  this.validation.password = true
-              }
+    //           if (!this.user.password) {
+    //               this.validation.password = true
+    //           }
 
-          }
-      },
+    //       }
+    //   },
 
-      //check user already logged in
-      mounted() {
-          if (this.loggedIn) {
-              return this.$router.push({ name: 'dashboard' })
-          }
-      }
+    //   //check user already logged in
+    //   mounted() {
+    //       if (this.loggedIn) {
+    //           return this.$router.push({ name: 'dashboard' })
+    //       }
+    //   }
   }
 </script>
